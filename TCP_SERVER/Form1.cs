@@ -80,14 +80,21 @@ namespace TCP_SERVER
 
         private void Send_Btn_Click(object sender, EventArgs e)
         {
-            if (server.IsListening)
+            try
             {
+                if (server.IsListening)
+                {
                     if (!string.IsNullOrEmpty(Msg_TxtBox.Text) && Client_IP_List.SelectedItem != null)
                     {
                         server.Send(Client_IP_List.SelectedItem.ToString(), Msg_TxtBox.Text);
                         Info_TxtBox.Text += $"Server: {Msg_TxtBox.Text} ( {Client_IP_List.SelectedItem} ) {Environment.NewLine}";
                         Msg_TxtBox.Text = string.Empty;
                     }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
